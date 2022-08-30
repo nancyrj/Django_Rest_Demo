@@ -15,11 +15,9 @@ def valid_pan_provided(pan):
     raise ValidationError("invalid pancard")
 
 class GetcustomerDetailsserializer(serializers.Serializer):
-    # name=serializers.CharField(required=True)
-    # phone=serializers.IntegerField(required=True)
-    # email=serializers.EmailField(required=True)
-    # city=serializers.CharField(required=True)
-    # state=serializers.CharField(required=True)
-    # country=serializers.CharField(required=True)
-    # adharcard=serializers.IntegerField(required=True)
-    pan_number=serializers.CharField(required=True,validators=[valid_pan_provided])
+    # pan_number=serializers.CharField(required=True,validators=[valid_pan_provided])
+    pan_number=serializers.CharField(required=True)
+    def validate_pan_number(self,pan_number):
+        if (pan_number[3] == "P"):
+            return True
+        raise ValidationError("invalid pancard*******")
