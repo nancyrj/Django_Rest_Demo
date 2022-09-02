@@ -82,3 +82,4 @@ class GetCusts(APIView):
             cust_list.append(res)
 
         return JsonResponse({"Customers":cust_list})
+
