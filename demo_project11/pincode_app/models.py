@@ -21,3 +21,21 @@ class CityMaster(models.Model):
 class Pincodemaster(models.Model):
     pin_code=models.IntegerField()
     city=models.ForeignKey(CityMaster,on_delete=models.CASCADE)
+
+
+class Mahapindata(models.Model):
+    Name=models.CharField(max_length=100,default=None)
+    Description=models.CharField(max_length=100,default="world_famous")
+    BranchType=models.CharField(max_length=100,default=None)
+    DeliveryStatus=models.CharField(max_length=100,default=None)
+    Circle= models.CharField(max_length=100,default=None)
+    District=models.CharField(max_length=100,default=None)
+    Division=models.CharField(max_length=100,default=None)
+    Region=models.CharField(max_length=100,default=None)
+    Block=models.CharField(max_length=100,default=None)
+    State=models.CharField(max_length=100,default=None)
+    Country=models.CharField(max_length=100,default=None)
+    Pincode=models.IntegerField(default=None)
+
+    class Meta:
+        db_table="MahapinIndia"
