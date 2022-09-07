@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework.views import APIView
 from django.http import JsonResponse
-from .models import Candidate,Userdata
+from .models import Candidate,Userdata,Imageupload
 from .serializers import  GetcustomerDetailsserializer
 from django.core.exceptions import ObjectDoesNotExist
 from  faker import Faker
@@ -33,7 +33,7 @@ class FakeData(APIView):
                 user_obj = Userdata(name = name,phone = phone,city = city,state= state,country = country,pancard = pan
                                     ,aadharcard=addhar,emailid=email)
                 user_obj.save()
-
+                print(phone)
             return JsonResponse({})
 class GetcustomerDetails(APIView):
 
@@ -48,6 +48,29 @@ class GetcustomerDetails(APIView):
                 return JsonResponse({"customers":res})
             except ObjectDoesNotExist as error:
                 return JsonResponse({"Error":"User not exists in record"})
+
+    def patch(self,request):
+        phone = request.data.get("phone")
+        pancard = request.data.get("pan_card")
+        try:
+            obj = Userdata.objects.get(pancard=pancard)
+            prev_ph =obj.phone
+            if obj:
+                obj.phone= phone
+                obj.save()
+                res = {"name": obj.name, "phone": obj.phone, "email": obj.emailid, "city": obj.city, "state": obj.state,
+                       "country": obj.country
+                    , "pan_nunber": obj.pancard, "aadharcard": obj.aadharcard}
+                return JsonResponse({"Updated deatils": res,"prev_ph":prev_ph})
+        except ObjectDoesNotExist as err:
+            return JsonResponse({"Error":"Given user not exists"})
+
+
+
+    def get(self,request):
+        from django.middleware import csrf
+        token = csrf.get_token(request)
+        return JsonResponse({"mag":token})
 
 
 class Phoneno(APIView):
@@ -82,4 +105,17 @@ class GetCusts(APIView):
             cust_list.append(res)
 
         return JsonResponse({"Customers":cust_list})
+
+
+class ImageUploadView(APIView):
+    def post(self,request):
+        image=request.data.get("image")
+        print("this is ",image)
+        Imageupload(img=image).save()
+        return JsonResponse({"result":"success"})
+
+
+
+
+
 

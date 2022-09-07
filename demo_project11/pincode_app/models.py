@@ -23,6 +23,11 @@ class Pincodemaster(models.Model):
     city=models.ForeignKey(CityMaster,on_delete=models.CASCADE)
 
 
+
+class Yavatmaldata(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(District="Yavatmal")
+
 class Mahapindata(models.Model):
     Name=models.CharField(max_length=100,default=None)
     Description=models.CharField(max_length=100,default="world_famous")
@@ -36,6 +41,13 @@ class Mahapindata(models.Model):
     State=models.CharField(max_length=100,default=None)
     Country=models.CharField(max_length=100,default=None)
     Pincode=models.IntegerField(default=None)
+    # atul=models.Manager()
+    # yavdata=Yavatmaldata()
+
 
     class Meta:
         db_table="MahapinIndia"
+    @classmethod
+    def yavdata(self):
+        return self.objects.filter(District="Yavatmal")
+

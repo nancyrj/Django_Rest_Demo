@@ -12,9 +12,13 @@ class Candidate(models.Model):
 class Userdata(models.Model):
         name=models.CharField(max_length=100)
         emailid=models.EmailField()
-        phone=models.IntegerField()
+        phone=models.BigIntegerField()
         city=models.CharField(max_length=100)
         state=models.CharField(max_length=100)
         country=models.CharField(max_length=100)
         pancard=models.CharField(max_length=15)
-        aadharcard=models.IntegerField()
+        aadharcard=models.BigIntegerField()
+
+
+class Imageupload(models.Model):
+        img=models.ImageField(upload_to="images")
