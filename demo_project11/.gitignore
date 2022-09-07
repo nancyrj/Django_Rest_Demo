@@ -2,3 +2,7 @@ db.sqlite3
 *.pyc
 .idea/vcs.xml
 **/__pycache__
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+**/*.pyc
