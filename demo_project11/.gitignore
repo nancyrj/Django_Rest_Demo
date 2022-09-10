@@ -8,4 +8,4 @@ db.sqlite3
 **/*.pyc
 media
 email_app/migrations/
-config.cfg
+*.cfg
