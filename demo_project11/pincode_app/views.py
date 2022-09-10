@@ -6,6 +6,10 @@ from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from .serializer import Pincodeserializer
 import requests as req
+# from django.conf import settings
+from demo_project11.settings import *
+
+PIN_CODE_API_URL=config.get("PICODE_API","API_URL")
 
 
 
@@ -75,7 +79,7 @@ class Pincode(APIView):
 class Hitindianpincode(APIView):
     def post(self,request):
         pincode=request.data.get("Pincode")
-        resp=req.get(url="https://api.postalpincode.in/pincode/{}".format(pincode))
+        resp=req.get(url=PIN_CODE_API_URL+"/{}".format(pincode))
         # print(resp.json())
         return JsonResponse({"result":resp.json()})
 

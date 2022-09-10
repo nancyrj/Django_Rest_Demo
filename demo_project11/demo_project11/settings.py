@@ -14,10 +14,18 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
+import config as config
+from six.moves import configparser
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+config = configparser.SafeConfigParser(allow_no_value=True)
+try:
+    with open(os.path.join(BASE_DIR,'demo_project11','config.cfg')) as configfile:
+        config.read_file(configfile)
+except Exception as exp:
+    pass
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -31,12 +39,12 @@ ALLOWED_HOSTS = []
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_BACKEND = config.get("EMAIL","EMAIL_BACKEND")
+EMAIL_HOST = config.get("EMAIL","EMAIL_HOST")
+EMAIL_USE_TLS = config.get("EMAIL","EMAIL_USE_TLS")
+EMAIL_PORT = config.get("EMAIL","EMAIL_PORT")
+EMAIL_HOST_USER = config.get("EMAIL","EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config.get("EMAIL","EMAIL_HOST_PASSWORD")
 
 
 
@@ -94,12 +102,12 @@ WSGI_APPLICATION = 'demo_project11.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'djangodb',
-        'USER': 'root',
-        'PASSWORD':'',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'ENGINE': config.get("DATABASE","ENGINE"),
+        'NAME': config.get("DATABASE","NAME") ,
+        'USER': config.get("DATABASE","USER"),
+        'PASSWORD': config.get("DATABASE","PASSWORD"),
+        'HOST': config.get("DATABASE","HOST"),
+        'PORT': config.get("DATABASE","PORT"),
 
     }
 }

@@ -1,6 +1,10 @@
 from django.core.management.base import BaseCommand
 import requests as reqq
 from pincode_app.models import Mahapindata
+from demo_project11.settings import *
+
+PIN_CODE_API_URL=config.get("PICODE_API","API_URL")
+
 
 class Command(BaseCommand):
 
@@ -9,7 +13,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         pincode=options.get("pincode")
-        pincode_resp = reqq.get(url="https://api.postalpincode.in/pincode/{}".format(pincode))
+        pincode_resp = reqq.get(url=PIN_CODE_API_URL+"/{}".format(pincode))
         python_dict= pincode_resp.json()
         count=0
         for i in python_dict:
