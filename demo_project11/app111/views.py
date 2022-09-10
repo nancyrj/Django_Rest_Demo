@@ -3,10 +3,11 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework.views import APIView
 from django.http import JsonResponse
-from .models import Candidate,Userdata,Imageupload
+from .models import Candidate,Userdata,Imageupload,Employee
 from .serializers import  GetcustomerDetailsserializer
 from django.core.exceptions import ObjectDoesNotExist
 from  faker import Faker
+from rest_framework.viewsets import ModelViewSet
 import random
 
 import string
@@ -114,6 +115,12 @@ class ImageUploadView(APIView):
         Imageupload(img=image).save()
         return JsonResponse({"result":"success"})
 
+from rest_framework import viewsets
+from .serializers import EmployeeSerializers
+class EmpModelViewset(ModelViewSet):
+    model = Employee
+    serializer_class = EmployeeSerializers
+    queryset = Employee.objects.all()
 
 
 

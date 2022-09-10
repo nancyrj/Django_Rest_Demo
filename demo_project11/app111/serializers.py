@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
 import re
-
+from rest_framework.serializers import ModelSerializer
+from .models import Employee
 
 def valid_aadhar_provided(addhar):
     if len(str(addhar))==12:
@@ -21,3 +22,9 @@ class GetcustomerDetailsserializer(serializers.Serializer):
         if (pan_number[3] == "P"):
             return True
         raise ValidationError("invalid pancard*******")
+
+
+class EmployeeSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = "__all__"

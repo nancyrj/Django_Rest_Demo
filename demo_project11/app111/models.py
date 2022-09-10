@@ -1,5 +1,5 @@
 from django.db import models
-
+from rest_framework.viewsets import ModelViewSet
 # Create your models here.
 
 class Candidate(models.Model):
@@ -22,3 +22,9 @@ class Userdata(models.Model):
 
 class Imageupload(models.Model):
         img=models.ImageField(upload_to="images")
+
+class Employee(models.Model):
+        emp_first_name = models.CharField(max_length=100)
+        emp_last_name = models.CharField(max_length=100)
+        emp_phone = models.CharField(max_length=100)
+        emp_address = models.CharField(max_length=100)

@@ -7,3 +7,4 @@ db.sqlite3
 !**/migrations/__init__.py
 **/*.pyc
 media
+email_app/migrations/
